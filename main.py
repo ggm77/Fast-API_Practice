@@ -24,7 +24,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 num = 1
 
 @app.get("/", response_class=HTMLResponse)
-def home(request:Request):  #Request and str are data type.
+def home(request:Request):  #Request is data type.
     return templets.TemplateResponse("index.html", {"request":request})
 
 
