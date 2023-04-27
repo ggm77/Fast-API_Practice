@@ -5,6 +5,7 @@ Author : 서하민
 FastApi practice app
 
 
+
 """
 
 # run web page ->  uvicorn main:app --reload        ## main->file name  // app->app name
@@ -17,15 +18,24 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI(docs_url="/documentation", redoc_url=None) #Build app and remove documentation page.
 
-templets = Jinja2Templates(directory="templates")
+templets = Jinja2Templates(directory="templates") # html
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static") # css
 
 num = 1
 
 @app.get("/", response_class=HTMLResponse)
 def home(request:Request):  #Request is data type.
-    return templets.TemplateResponse("index.html", {"request":request})
+
+    # h = 서하민 html file  ///  j = 송준선 html file
+    whoseFile = "j" # "j" 
+
+    if whoseFile == "h":
+        return templets.TemplateResponse("index-hamin.html", {"request":request})
+    elif whoseFile == "j":
+        return templets.TemplateResponse("index.html", {"request":request})
+    else:
+        print("error")
 
 
 

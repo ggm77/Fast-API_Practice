@@ -1,0 +1,296 @@
+body {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    background: #8D8D8D;
+    font-family: 'Hanken Grotesk';
+    font-style: italic;
+}
+
+.Rect1 { 
+    position: absolute;
+    width:795px;
+    height:524px;
+    left:322px;
+    top:250px;
+    background: rgba(255,255,255,0.67);
+    border-radius: 38px;
+}
+
+.Rect2 {
+    position: absolute;
+    width: 419px;
+    height: 524px;
+    left:322px;
+    top: 250px;
+    background: radial-gradient(96.75% 96.75% at 49.88% 3.25%, #4E21CA 0%, #3835DE 100%);
+    border-radius:30px;
+}
+.Circle1 {
+    position: absolute;
+    width:197px;
+    height:197px;
+    left:433px;
+    top:359px;
+    background: linear-gradient(179.85deg, #7857FF 4.43%, #2E2BE9 99.87%);
+    border-radius: 50%;
+}
+
+.memory {
+    position: absolute;
+    width: 274px;
+    height: 52px;
+    left: 780px;
+    top: 433px;
+    
+    background: rgba(255, 178, 30, 0.1);
+    border-radius: 10px;
+}
+.verbal {
+    position: absolute;
+    width: 274px;
+    height: 52px;
+    left: 780px;
+    top: 505px;
+    
+    background: rgba(0, 187, 143, 0.1);
+    border-radius: 10px;
+}
+.visual { 
+    position: absolute;
+    width: 274px;
+    height: 52px;
+    left: 780px;
+    top: 579px;
+    
+    background: rgba(17, 37, 214, 0.1);
+    border-radius: 10px;
+}
+.continue {
+    position: absolute;
+    width: 274px;
+    height: 52px;
+    left: 780px;
+    top: 665px;
+    
+    background: radial-gradient(96.75% 96.75% at 49.88% 3.25%, #4E21CA 0%, #3835DE 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    border-radius: 30px;
+}
+.p1 {
+    position: absolute;
+    width: 143px;
+    height: 28px;
+    left: 155px;
+    top: 20px;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+    font-family: 'Hanken Grotesk';
+    font-style: italic;
+
+    color: rgba(255, 255, 255, 0.5);
+    
+}
+.Circle1 > p:nth-child(1){
+    position: absolute;
+    width: 94px;
+    height: 62px;
+    left: 70px;
+    top: -10px;
+    font-family: 'Hanken Grotesk';
+    font-style: italic;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 73px;
+
+    color: #FFFFFF;    
+}
+.Circle1 > p:nth-child(2) {
+    position: absolute;
+    width: 62px;
+    font-family: 'Hanken Grotesk';
+    font-style: italic;
+    height: 22px;
+    left: 75px;
+    top: 110px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    color: rgba(255, 255, 255, 0.5);
+        
+}
+.Circle1 > p:nth-child(3) {
+    position: absolute;
+    width: 105px;
+    height: 28px;
+    left: 65px;
+    top: 200px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+
+    color: #FFFFFF;
+}
+.Circle1 > p:nth-child(4) {
+    position: absolute;
+    width:245px;
+    height:72px;
+    left:-20px;
+    font-family: 'Hanken Grotesk';
+    font-style: italic;
+    top:270px;
+    font-size:18px;
+    font-weight:400;
+    line-height:22px;
+    text-align:center;
+    color:rgba(255,255,255,0.5);
+}
+.Rect1 > p {
+    position: absolute;
+    width: 119px;
+    height: 15px;
+    left: 455px;
+    top: 25px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 27px;
+    color: #000000;
+
+}
+
+.reaction > p:nth-child(1) {
+    position: absolute;
+    width: 103px;
+    height: 21px;
+    left: 60px;
+    top: 5px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    
+    color: #FF2B2B;  
+}
+.reaction > p:nth-child(2) {
+    position: absolute;
+    width: 31px;
+    height: 21px;
+    left: 190px;
+    top: 0px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: "Hanken Grotesk";
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.continue > p {
+    text-align: center;
+    color:#ffffff;
+}
+.strong {
+    color:black;
+}
+.memory > p:nth-child(2) {
+    position: absolute;
+    width: 31px;
+    height: 21px;
+    left: 190px;
+    top: 0px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: rgba(0, 0, 0, 0.5);
+}
+.strong2 {
+    color:black;    
+}
+.verbal > p:nth-child(2) {
+    position: absolute;
+    width: 31px;
+    height: 21px;
+    left: 190px;
+    top: 0px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+
+    color:  rgba(0, 0, 0, 0.5);
+}
+.strong3 {
+    color:black;
+}
+.visual > p:nth-child(2) {
+    position: absolute;
+    width: 31px;
+    height: 21px;
+    left: 190px;
+    top: 0px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+
+    color:  rgba(0, 0, 0, 0.5);
+}
+.strong4 {
+    color:black;
+}
+
+.memory > p:nth-child(1) {
+    position: absolute;
+    width: 103px;
+    height: 21px;
+    left: 60px;
+    top: 5px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+
+    color: #D48C03;
+
+}
+.verbal > p:nth-child(1) {
+    position: absolute;
+    width: 103px;
+    height: 21px;
+    left: 60px;
+    top: 5px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+
+    color: #029774;
+}
+
+.visual> p:nth-child(1) {
+    position: absolute;
+    width: 103px;
+    height: 21px;
+    left: 60px;
+    top: 5px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+
+    color: #1125D6;
+}
+.reaction {
+    position: absolute;
+    width: 274px;
+    height: 52px;
+    left: 780px;
+    top: 362px;
+    background: rgba(255, 85, 85, 0.1);
+    border-radius: 10px;
+}
