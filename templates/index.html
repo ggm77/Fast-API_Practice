@@ -1,9 +1,8 @@
-<!-- file:///Users/user/Desktop/programming/vscode/webpage/practice/index.html -->
 <!DOCTYPE html5>
 <html>
     <head>
         <title>practice</title>
-        <link rel = "stylesheet" href = "style.css">
+        <link rel = "stylesheet" href = "{{url_for('static', path = '/style.css')}}">  <!-- diffrent with other html files -->
     </head>
     <body>
         <div class = "body-content">
@@ -15,6 +14,7 @@
 
                 </div>
                 <div class = "image">
+                    <!--<h1>Item ID : {{ id }}</h1> -->
 
                 </div>
             </div>

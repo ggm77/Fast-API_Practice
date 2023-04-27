@@ -10,17 +10,21 @@ FastApi practice app
 # run web page ->  uvicorn main:app --reload        ## main->file name  // app->app name
 
 
-from fastapi import FastAPI # Import FastAPI.
-from fastapi import Request
-from fastapi.templating import Jinja2Templates # html display module
-
-templets = Jinja2Templates(directory="templates")
-
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI(docs_url="/documentation", redoc_url=None) #Build app and remove documentation page.
 
-@app.get("/")
-def home(request:Request):
+templets = Jinja2Templates(directory="templates")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+num = 1
+
+@app.get("/", response_class=HTMLResponse)
+def home(request:Request):  #Request and str are data type.
     return templets.TemplateResponse("index.html", {"request":request})
 
 
