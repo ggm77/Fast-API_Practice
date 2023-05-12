@@ -60,7 +60,7 @@ def helloworld(request:Request):
 
 @app.get("/gettext", response_class=HTMLResponse)
 def gettext(request:Request):
-    return templets.TemplateResponse("gettext.html", {"request":request})
+    return templets.TemplateResponse("gettext.html", {"request":request,"id":"ggm"})
 
 
 
@@ -78,12 +78,12 @@ def result(text: int):
 class Post(BaseModel):
     text : str
 
-
-@app.post("/post")
-def post(text: str=Form(...)):
-    return text
+#If input file is form data.
+@app.post("/post", response_class=HTMLResponse)
+def post(request:Request,text: str=Form(...)):
+    return templets.TemplateResponse("post.html", {"request":request, "id":text})
 """
-
+#If input file is json.
 @app.post("/post")
 def post(post:Post):
     return post
