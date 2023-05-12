@@ -34,6 +34,10 @@ templets = Jinja2Templates(directory="templates") # html
 app.mount("/static", StaticFiles(directory="static"), name="static") # css and js
 
 @app.get("/", response_class=HTMLResponse)
+def first(request:Request):
+    return templets.TemplateResponse("home.html", {"request":request})
+
+@app.get("/j2", response_class=HTMLResponse)
 def home(request:Request):  #Request is data type.
     return templets.TemplateResponse("index-1.html", {"request":request})
 
@@ -74,7 +78,7 @@ def result(text: int):
 class Post(BaseModel):
     text : str
 
-"""
+
 @app.post("/post")
 def post(text: str=Form(...)):
     return text
@@ -83,7 +87,7 @@ def post(text: str=Form(...)):
 @app.post("/post")
 def post(post:Post):
     return post
-
+"""
 
 #############
 
