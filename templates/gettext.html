@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{url_for('static', path = '/css/gettext.css')}}">
+    <title>Get Text Test</title>
+</head>
+
+<body>
+    <form method="get" action="http://127.0.0.1:8000/result">
+        <h3>get parameter</h3>
+        <h4>go to /result</h4>
+        <input type = "text" name = "text">
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <br>
+    <form method="post" action="http://127.0.0.1:8000/post">
+        <h3>post parameter</h3>
+        <h4>go to /post</h4>
+        <input type = "text" name = "text">
+        <input type = "submit">
+    </form>
+</body>
+</html>
+

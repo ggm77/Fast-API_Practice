@@ -36,3 +36,11 @@
     background-color: purple;
     float: right;
 }
+
+.Btn{
+
+    padding: 10px 30px;
+    color:rgb(255, 255, 255);
+    border:none;
+    background-color: aquamarine;
+}
