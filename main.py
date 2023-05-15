@@ -23,8 +23,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
-from enum import Enum
-from typing import Any
+import json
+
 
 #app = FastAPI(docs_url="/documentation", redoc_url=None) #Build app and remove documentation page.
 app = FastAPI()
@@ -53,26 +53,18 @@ def home2(request:Request):
 def helloworld(request:Request):
     return templets.TemplateResponse("helloworld.html", {"request":request})
 
-
-
-
-
-
 @app.get("/gettext", response_class=HTMLResponse)
 def gettext(request:Request):
-    return templets.TemplateResponse("gettext.html", {"request":request,"id":"ggm"})
+    return templets.TemplateResponse("gettext.html", {"request":request,"id":"Made by Fast API"})
 
+#<!------------------------------------->
+#This part is examples for get parameter and post parameter.
 
-
-
-##########
-
-
-list = ["apple","banana", "orange"]
+Flist = ["apple","banana", "orange"]
 
 @app.get("/result")
 def result(text: int):
-    return list[text-1]
+    return Flist[text-1]
 
 
 class Post(BaseModel):
@@ -89,11 +81,37 @@ def post(post:Post):
     return post
 """
 
-#############
+#<!------------------------------------->
+
+
+@app.get("/login", response_class=HTMLResponse)
+def login(request:Request):
+    return templets.TemplateResponse("login.html", {"request":request})
+
+data = {"ggm":"1234","hhm":"2345"}
+dict = {"ggm":{"id":"ggm", "level":15, "skill":["Python","C","Java","HTML","CSS","JavaScript","React-native","Fast API"]}, "hhm":{"id":"hhm","level":10,"skill":["Python","C","Java"]}}
+
+class userInfo(BaseModel):
+    id: str
+    level: int
+    skill: list
+
+@app.post("/myprofile", response_class=HTMLResponse, response_model=userInfo)
+def myprofile(request:Request, id: str=Form(...), password: str=Form(...)):
+    if (id in data and data[id]==password):
+        print(f"{id} login sucsess")
+
+        userData = json.dumps(dict[id]) # dict to json
+
+        return templets.TemplateResponse("myprofile.html", {"request":request, "id":id, "data":userData}) # userData is json file.
+    else:
+        print(f"{id} login fail")
+        return templets.TemplateResponse("loginError.html", {"request":request})
 
 
 
 
+#404page 
 @app.get("/{item_id}", response_class=HTMLResponse)
 def error(request:Request):
     return templets.TemplateResponse("404Page.html", {"request":request})

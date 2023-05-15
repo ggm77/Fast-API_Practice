@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <title>my profile</title>
+    </head>
+    <body>
+        <h4>{{id}}</h4>
+        <h4>{{data}}</h4>
+        <div id = "data">{{data}}</div>
+        <br>
+        <br>
+        <p id="id"></p>
+        <p id="level"></p>
+        <p id="skill"></p>
+
+
+        <script type="text/javascript">
+            const data = document.getElementById("data");
+
+            
+
+            console.log(data)
+
+            document.getElementById("id").innerHTML = data.id;
+            document.getElementById("level").innerHTML = data.level;
+            document.getElementById("skill").innerHTML = data.skill;            
+
+
+        </script>
+    </body>
+</html>

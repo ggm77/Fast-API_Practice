@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="{{url_for('static', path = '/css/gettext.css')}}">
     <title>Get Text Test</title>
 </head>
 
 <body>
+    <h2>{{id}}</h2>
     <form method="get" action="/result">
         <h3>get parameter</h3>
+        <br>
         <h4>go to /result</h4>
+        <h4>1 : apple, 2 : banana, 3 : orange</h4>
         <h4>please write only 1,2,3</h4>
         <input type = "text" name = "text">
         <input type="submit">
