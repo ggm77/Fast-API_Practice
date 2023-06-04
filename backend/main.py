@@ -28,6 +28,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import timedelta, datetime
 from pydantic import BaseModel
+from collections import OrderedDict
 import json
 
 
@@ -47,6 +48,8 @@ SECRET_KEY = "b992da1f01e3bea4ed5e0a0b9e8ed6dab31fa0ce022bc1c147f9a0cc53a59357" 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -60,7 +63,8 @@ class User(BaseModel):
     userType: str
     username: str
     email: str
-    profilePicture: str
+    profilePicture: Union[str, None] = None
+    disabled: bool
 
 
 class UserInDB(User):
@@ -72,10 +76,11 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
+
+
 templets = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 
 
@@ -95,8 +100,6 @@ app.add_middleware(
 )
 
 ##
-
-
 
 
 def verify_password(plain_password, hashed_password):
@@ -131,7 +134,7 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
     return encoded_jwt
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -152,7 +155,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
 
 
 async def get_current_active_user(
-    current_user: Annotated[User, Depends()]
+    current_user: User = Depends(get_current_user)
 ):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -172,14 +175,38 @@ async def get_current_active_user(
 # user1:2345
 
 # userType = admin or user / username = nickname / hashed_password / email = email address / profilePicture = user profile picture 
-userInfo = {"admin":{"userType":"admin", "username":"admin", "hashed_password":"$2b$12$qVvSlFz6todXOw5U2h8waurQrIVqmvnMBAXU3A0HvAVxTH.vkbMKm","email":"email1111@aaaaaa.com", "profilePicture":"admin.png"},
-            "user1":{"userType":"user", "username":"user1",  "hashed_password":"$2b$12$9j.mP0Z42NrsMzLlkmYawOAte048jVVwadHNi.oCVOIzM8rIZs/QC","email":"email2222@bbbbbb.com", "profilePicture":"user1.png"}
+userInfo = {"admin":{"userType":"admin", "username":"admin", "hashed_password":"$2b$12$qVvSlFz6todXOw5U2h8waurQrIVqmvnMBAXU3A0HvAVxTH.vkbMKm","email":"email1111@aaaaaa.com", "profilePicture":"admin.png", "disabled":False},
+            "user1":{"userType":"user", "username":"user1",  "hashed_password":"$2b$12$9j.mP0Z42NrsMzLlkmYawOAte048jVVwadHNi.oCVOIzM8rIZs/QC","email":"email2222@bbbbbb.com", "profilePicture":"user1.png", "disabled":False}
         }
 #------#
 
 
 
+#token
+@app.post("/token", response_model=Token)
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends()
+):
+    user = authenticate_user(userInfo, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    print(form_data.username, form_data.password)
+    print(f"[{datetime.utcnow()}]\n",{"access_token": access_token, "token_type": "bearer"})
 
+    fileData = OrderedDict()
+    fileData["acces_tokken"] = access_token
+    fileData["token_type"] = "bearer"
+
+    return {"access_token": access_token, "token_type": "bearer"}
+    #return json.dumps(fileData, ensure_ascii=False, indent="\t")
 
 
 
@@ -189,21 +216,21 @@ def first(request:Request):
 
 @app.get("/users/me/", response_model=User)
 async def read_users_me(
-    current_user: Annotated[User, Depends(get_current_active_user)]
+    current_user: User = Depends(get_current_active_user)
 ):
-    print(current_user)
     return current_user
 
+
+#login page html show
 @app.get("/login", response_class=HTMLResponse) #login page
 async def login(request:Request):
-    return templets.TemplateResponse("token_login.html", {"request":request})
+    return templets.TemplateResponse("index.html", {"request":request})
 
-
+"""
 #token login processing, return token
 @app.post("/loginProcess", response_model=Token)
 async def login_to_token(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    response:Response
+    form_data: OAuth2PasswordRequestForm = Depends()
 ):
     user = authenticate_user(userInfo, form_data.username, form_data.password)
     if not user:
@@ -217,13 +244,9 @@ async def login_to_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     print(f"[{datetime.utcnow()}] {form_data.username} logined")
-    response.set_cookie(key="token", value=access_token)
-    if str(user.userType) == "admin":
-        return {"DB":userInfo,"access_token": access_token, "token_type": "bearer"}
-    else:
-        return {"access_token": access_token, "token_type": "bearer"} #acces_token must input to header
+    return {"access_token": access_token, "token_type": "bearer"} #acces_token must input to header
 
-
+"""
 
 
 
